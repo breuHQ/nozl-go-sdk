@@ -1,4 +1,4 @@
-package nozlgosdk
+package ngs
 
 import (
 	"bytes"
@@ -8,17 +8,17 @@ import (
 	"net/http"
 )
 
-type Nozl struct {
+type Client struct {
 	TenantAPIKey string
 	Url          string
 }
 
-func (n *Nozl) SendMessage(msg *Message) ([]byte, error) {
+func (c *Client) SendMessage(msg *Message) ([]byte, error) {
 	payload := msg.ToJson()
 
 	if payload != nil {
 		client := &http.Client{}
-		req, err := http.NewRequest("POST", n.Url, bytes.NewReader(payload))
+		req, err := http.NewRequest("POST", c.Url, bytes.NewReader(payload))
 
 		if err != nil {
 			fmt.Println(err.Error())
@@ -26,7 +26,7 @@ func (n *Nozl) SendMessage(msg *Message) ([]byte, error) {
 		}
 
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", n.TenantAPIKey))
+		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.TenantAPIKey))
 
 		resp, err := client.Do(req)
 
@@ -45,7 +45,7 @@ func (n *Nozl) SendMessage(msg *Message) ([]byte, error) {
 		return body, nil
 		
 	} else {
-		fmt.Println("Error: payload is empty")
-		return nil, errors.New("Error: payload is empty")
+		fmt.Println("error: payload is empty")
+		return nil, errors.New("error: payload is empty")
 	}
 }

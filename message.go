@@ -1,4 +1,4 @@
-package nozlgosdk
+package ngs
 
 import (
 	"encoding/json"
