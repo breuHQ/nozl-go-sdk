@@ -1,4 +1,4 @@
-package main
+package nozlgosdk
 
 import (
 	"encoding/json"
