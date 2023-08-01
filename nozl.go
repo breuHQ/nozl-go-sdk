@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -35,7 +35,7 @@ func (c *Client) SendMessage(msg *Message) ([]byte, error) {
 			return nil, err
 		}
 
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 
 		if err != nil {
 			fmt.Println(err.Error())
